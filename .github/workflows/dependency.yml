@@ -13,7 +13,7 @@ jobs:
     runs-on: windows-latest
     steps: 
       - name: First step on windows job
-        run: ls -la
+        run: ls 
       - run: pwd
   dependent-job-1:
      needs : [job-on-ubuntu, job-on-windows]
