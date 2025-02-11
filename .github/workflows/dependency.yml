@@ -1,0 +1,37 @@
+name: Workflow with multiple stages
+
+on: push
+
+jobs:
+  job-on-ubuntu:
+    runs-on: ubuntu-latest
+    steps:
+      - run : date
+      - run : pwd
+  job-on-windows:
+    name: A job running on windows
+    runs-on: windows-latest
+    steps: 
+      - name: First step on windows job
+        run: ls -la
+      - run: pwd
+  dependent-job-1:
+     needs : [job-on-ubuntu, job-on-windows]
+     runs-on: macos-latest
+     name: A job that is dependent on the first two jobs
+     steps: 
+       - run: pwd
+       - name: second step
+         run: ls
+       - run: env
+  dependent-job-2:
+      needs: dependent-job-1
+      name: A job that is dependent on job 1
+      runs-on: ubuntu-latest
+      steps: 
+       - run: echo Wow it works 
+
+
+       
+        
+      
